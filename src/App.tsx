@@ -1,80 +1,109 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
 import {
-    Input, Card, CardBody, CardHeader, ListGroup, Button,
-} from 'reactstrap';
+    Input,
+    Card,
+    CardBody,
+    CardHeader,
+    ListGroupItem,
+    Button,
+    Row,
+    Col,
+} from 'reactstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-
     const [
         firstInteger,
         setFirstInteger,
-    ] = React.useState<number | null >(0);
+    ] = useState<number | null>(0);
     const [
         secondInteger,
         setSecondInteger,
-    ] = React.useState<number | null >(0);
+    ] = useState<number | null>(0);
     const [
         result,
         setResult,
-    ] = React.useState<number | null >(0);
+    ] = useState<number | null>(0);
 
-    const russianMultiplying = (firstNumb: number | null, secondNumb: number | null) => {
+    const russianMultiplication = (firstNumb: number | null, secondNumb: number | null) => {
         if (firstNumb && secondNumb) {
-            let result = 0;
-            let firstNumbCopy = firstNumb;
-            let secondNumbCopy = secondNumb;
-            while (firstNumbCopy > 0) {
-                if (firstNumbCopy % 2 === 1) {
-                    result += secondNumbCopy;
+            let sum = 0;
+            while (firstNumb > 1) {
+                if (firstNumb % 2 === 1) {
+                    sum += secondNumb;
                 }
-                firstNumbCopy = Math.floor(firstNumbCopy / 2);
-                secondNumbCopy *= 2;
+                firstNumb = shiftRight(firstNumb);
+                secondNumb = shiftLeft(secondNumb);
             }
-            return result;
+            return secondNumb + sum;
         }
         return 0;
     };
 
+    const shiftRight = (x: number) => {
+        const binary = x.toString(2);
+        const binaryX = parseInt(binary, 2) >> 1;
+        const decimalX = binaryX.toString(10);
+        const integer = parseInt(decimalX);
+        return integer;
+    };
+
+    const shiftLeft = (x: number) => {
+        const binary = x.toString(2);
+        const binaryX = parseInt(binary, 2) << 1;
+        const decimalX = binaryX.toString(10);
+        const integer = parseInt(decimalX);
+        return integer;
+    };
+
     return (
         <Card>
-            <CardHeader className='text-center'>Russian multiplying</CardHeader>
-            <CardBody className='p-0'>
-                <ListGroup className='mb-3 w-100 h-100'>
-
+            <CardHeader>Russian multiplying</CardHeader>
+            <CardBody>
+                <ListGroupItem>
+                    <Row className='justify-content-between'>
+                        <Col className='text-center'>
                     <Input
                         type="number"
-                        label="first Integer"
-                        className='m-3'
+                        className='m-1 text-center'
+                        placeholder="First Integer"
                         value={firstInteger ?? ''}
                         onChange={e => {
                             setFirstInteger(e.target.valueAsNumber);
                         }}
                     />
+                    </Col>
+                    <Col className='text-center'>
                     <Input
                         type="number"
-                        label='second Integer'
-                        className='m-3'
+                        className='m-1 text-center'
+                        placeholder="Second Integer"
                         value={secondInteger ?? ''}
                         onChange={e => {
                             setSecondInteger(e.target.valueAsNumber);
                         }}
                     />
-                </ListGroup>
-                <ListGroup>
+                    </Col>
+                    </Row>
+                </ListGroupItem>
+                <ListGroupItem>
                     <Button
-                        className='m-3 w-100'
+                        className='m-1 w-100'
+                        color='success'
                         onClick={() => {
-                            setResult(russianMultiplying(firstInteger, secondInteger));
+                            setResult(russianMultiplication(firstInteger, secondInteger));
                         }}
-                    />
+                    >
+                        Calculate
+                    </Button>
                     <Input
                         type="number"
+                        className='m-1 text-center'
                         readOnly
-                        className='m-3'
-                        value= {result ?? ''}
+                        value={result ?? ''}
                     />
-                </ListGroup>
+                </ListGroupItem>
             </CardBody>
         </Card>
     );

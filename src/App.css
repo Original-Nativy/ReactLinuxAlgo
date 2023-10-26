@@ -6,60 +6,8 @@ body {
   text-align: center;
 }
 
-.custom-navbar {
-  margin-bottom: 0px;
-}
-
-.custom-progress {
-  width: 2rem;
-  height: 1.7rem !important;
-  transform: rotate(-90deg);
-  outline: 1px solid #ccc;
-  transition: 1s ease;
-  transition-delay: 0.5s;
-}
-
-.custom-progress span {
-  font-size: xx-small;
-  position: absolute;
-  color: black;
-  transform: rotate(90deg);
-}
-
 .list-group-item {
   border-width: 0px!important;
   border-bottom-width: 1px!important;
-}
-
-.floating-alert {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-}
-
-.floating-alert-inner {
-  min-height: 55px;
-}
-
-.customfade-enter {
-  opacity: 0;
-}
-
-.customfade-enter-active {
-  opacity: 1;
-  transition: opacity 300ms!important;
-}
-
-.customfade-exit {
-  opacity: 0;
-}
-
-.customfade-exit-active {
-  opacity: 0;
-  transition: opacity 300ms!important;
 }
 
